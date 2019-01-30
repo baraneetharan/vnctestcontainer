@@ -2,3 +2,10 @@ language: java
 sudo: false # faster builds
 before_install:
 - chmod +x mvnw
+deploy:
+  provider: releases
+  api_key: "14bfb0d6405062c857b000de09d6c70c4e799e8e"
+  file: "artifacts"
+  skip_cleanup: true
+  on:
+    tags: true
