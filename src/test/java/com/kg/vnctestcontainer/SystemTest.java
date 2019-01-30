@@ -29,13 +29,28 @@ public class SystemTest {
     @Test
     public void seleniumTest() {
         RemoteWebDriver driver = browser.getWebDriver();
-        driver.get("https://saucelabs.com/test/guinea-pig");
-        String heading = driver.findElement(By.xpath("/html/body/h1")).getText();
+        // driver.get("https://saucelabs.com/test/guinea-pig");
+        // String heading = driver.findElement(By.xpath("/html/body/h1")).getText();
         System.out.println("*************************************************");
         System.out.println("*************************************************");
         System.out.println("Selenium Test Container test runs");
         System.out.println("*************************************************");
         System.out.println("*************************************************");
-        assertEquals("This page is a Selenium sandbox", heading);
+        // assertEquals("This page is a Selenium sandbox", heading);
+
+        driver.get("https://wikipedia.org");
+        WebElement searchInput = driver.findElementByName("search");
+
+        searchInput.sendKeys("Rick Astley");
+        searchInput.submit();
+
+        WebElement otherPage = driver.findElementByLinkText("Rickrolling");
+        otherPage.click();
+
+        boolean expectedTextFound = driver.findElementsByCssSelector("p")
+                .stream()
+                .anyMatch(element -> element.getText().contains("meme"));
+
+        assertTrue("The word 'meme' is found on a page about rickrolling", expectedTextFound);
     }
 }
